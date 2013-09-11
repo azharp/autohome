@@ -1,0 +1,86 @@
+{% extends "base/hero.html.twig" %}
+
+{% block content %}
+    <header>
+        <h1>Pengaturan Perangkat</h1>
+
+        <p>
+            Halaman ini dipergunakan untuk mengubah pengaturan perangkat yang terhubung dengan sistem.
+            Anda dapat menggunakan pengaturan berdasarkan waktu (Timer Rules) dan pengaturan berdasarkan sensor (Sensor Rules).
+            Anda dapat menggunakan lebih dari 1 pengaturan pada sebuah perangkat.
+        </p>
+    </header>
+
+    <section style="padding-bottom: 20px">
+        <div class="row-fluid">
+            <div class="span12">
+                <table id="devices" class="table table-striped table-hover">
+                    <caption><h4>Devices</h4></caption>
+                    <thead>
+                    <tr>
+                        <th class="name">Name</th>
+                        <th class="description">Attached Rule(s)</th>
+                        <th class="state">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for device in devices %}
+                        <tr>
+                            <td><strong>{{ device.name }}</strong></td>
+                            <td>
+                                {% for timer in device.sharedRuletimer %}
+                                    <div class="rules">{{ timer.time1 }} - {{ timer.time2 }} ({{ timer.realdays }}) <a
+                                                href="{{ app.urlFor('detach') }}/{{ device.id }}/t{{ timer.id }}"><i
+                                                    class="icon-trash"></i></a></div>
+                                {% endfor %}
+                                {% for sensor in device.sharedRulesensor %}
+                                    <div class="rules">{{ sensor.name }} {{ sensor.operator }} {{ sensor.value1 }} <a
+                                                href="{{ app.urlFor('detach') }}/{{ device.id }}/s{{ sensor.id }}"><i
+                                                    class="icon-trash"></i></a></div>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <div class="device-state">
+                                    <a class="btn btn-mini {% if device.status == 1 %}btn-success{% endif %}"
+                                       href="{{ app.urlFor('state') }}/{{ device.id }}/1">Enabled</a>
+                                    <a class="btn btn-mini {% if device.status == 0 %}btn-inverse{% endif %}"
+                                       href="{{ app.urlFor('state') }}/{{ device.id }}/0">Disabled</a>
+                                    <a class="btn btn-mini {% if device.status == 3 %}btn-warning{% endif %}"
+                                       href="{{ app.urlFor('state') }}/{{ device.id }}/3">Force
+                                        ON</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <form class="inline form-actions" method="POST" action="{{ app.urlFor('attach') }}">
+                    <h4>Attach rule to device</h4>
+                    <select name="device_id">
+                        {% for device in devices %}
+                            <option value="{{ device.id }}">{{ device.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="input-append">
+                        <select id="appendedInputButton" name="rule_id">
+                            <optgroup label="Timer Rules">
+                                {% for timer in timers %}
+                                    <option value="t{{ timer.id }}">{{ timer.time1 }} - {{ timer.time2 }}
+                                        ({{ timer.realdays }})
+                                    </option>
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Sensor Rules">
+                                {% for sensor in sensors %}
+                                    <option value="s{{ sensor.id }}">{{ sensor.name }} {{ sensor.operator }} {{ sensor.value1 }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                        <input type="submit" style="height: 30px;" value="Attach rule" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

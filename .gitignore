@@ -1,0 +1,7 @@
+/nbproject/
+/composer.lock
+/vendor/
+/!SOURCE/
+/!BACKUP/
+/.idea/
+/sqlite-jdbc-3.7.2.jar

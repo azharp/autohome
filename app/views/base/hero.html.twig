@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% if title %}{{ title }} | {% endif %}{{ app.getName() }}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    {% use "base/stylesheets.twig" %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <style type="text/css">
+            body {
+                padding-top:    60px;
+                padding-bottom: 40px;
+            }
+
+            .sidebar-nav {
+                padding: 9px 0;
+            }
+        </style>
+    {% endblock stylesheets %}
+
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+        <div class="container">
+            {{ app.request.getInfo() }}
+            {% block navbar %}
+                <a class="brand" href="{{ app.urlFor('/') }}">{{ app.getName() }}</a>
+                <ul class="nav">
+                    <li {% if app.urlFor('/') == uri %}class="active"{% endif %}><a
+                                href="{{ app.urlFor('/') }}">Home</a></li>
+                    <li {% if app.urlFor('devices') == uri %}class="active"{% endif %}><a
+                                href="{{ app.urlFor('devices') }}">Devices</a></li>
+                    <li {% if app.urlFor('rules') == uri %}class="active"{% endif %}><a
+                                href="{{ app.urlFor('rules') }}">Rules</a></li>
+                </ul>
+                {% if currentUser %}
+                    <p class="pull-right">Logged in as <a href="#">{{ currentUser.getFullName() }}</a></p>
+                {% endif %}
+            {% endblock navbar %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        {% if flash %}
+            {% include "base/components/flash.twig" %}
+        {% endif %}
+
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+
+    <div class="row">
+        <hr>
+        <footer>
+            {% block footer %}
+                <p>&copy; Copyright 2013</p>
+            {% endblock footer %}
+        </footer>
+    </div>
+
+</div>
+<!-- /container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% use "base/javascripts.twig" %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends "base/hero.html.twig" %}
+
+{% block content %}
+    <header>
+        <h1>Pengaturan</h1>
+
+        <p>
+            Pada halaman ini anda dapat mengubah aturan yang akan digunakan pada perangkat yang terhubung dengan sistem.
+            Untuk membuat pengaturan berdasarkan waktu klik tombol <strong>Timer Rule</strong>.
+            Untuk membuat pengaturan berdasarkan nilai sensor klik <strong>Sensor Rule</strong>.
+        </p>
+    </header>
+
+    <section style="padding-bottom: 20px">
+        <div class="row-fluid">
+            <div class="span12">
+                <table class="table table-striped table-hover">
+                    <caption><h4>Timer Rules</h4></caption>
+                    <thead>
+                    <tr>
+                        <th class="">Start</th>
+                        <th class="">Stop</th>
+                        <th class="status">Hari</th>
+                        <th>Description</th>
+                        <th class="action">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for timer in timers %}
+                        <tr>
+                            <td>{{ timer.time1 }}</td>
+                            <td>{{ timer.time2 }}</td>
+                            <td>{{ timer.realdays }}</td>
+                            <td><div class="description">{{ timer.description }}</div></td>
+                            <td>
+                                <form action="{{ app.urlFor('new_timer') }}/{{ timer.id }}" method="POST">
+                                    <a class="btn btn-mini" href="{{ app.urlFor('new_timer') }}/{{ timer.id }}"><i
+                                                class="icon-edit"></i></a>
+                                    <input type="hidden" name="_METHOD" value="DELETE"/>
+                                    <button class="btn btn-mini" type="submit"><i class="icon-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <table class="table table-striped table-hover">
+                    <caption><h4>Sensor Rules</h4></caption>
+                    <thead>
+                    <tr>
+                        <th class="">Sensor</th>
+                        <th class="status">Op</th>
+                        <th class="">Value1</th>
+                        <th class="">Value2</th>
+                        <th>Description</th>
+                        <th class="action">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sensor in sensors %}
+                        <tr>
+                            <td>{{ sensor.name }}</td>
+                            <td>{{ sensor.operator }}</td>
+                            <td>{{ sensor.value1 }}</td>
+                            <td>{{ sensor.value2 }}</td>
+                            <td><div class="description">{{ sensor.description }}</div></td>
+                            <td>
+                                <form action="{{ app.urlFor('new_sensor') }}/{{ sensor.id }}" method="POST">
+                                    <a class="btn btn-mini" href="{{ app.urlFor('new_sensor') }}/{{ sensor.id }}"><i
+                                                class="icon-edit"></i></a>
+                                    <input type="hidden" name="_METHOD" value="DELETE"/>
+                                    <button class="btn btn-mini" type="submit"><i class="icon-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="form-actions">
+                    <h4>Create new rule</h4>
+                    <a class="btn btn-success" href="{{ app.urlFor('timer') }}">Timer Rule</a>
+                    <a class="btn btn-info" href="{{ app.urlFor('sensor') }}">Sensor Rule</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

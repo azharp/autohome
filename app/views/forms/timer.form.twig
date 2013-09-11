@@ -1,0 +1,95 @@
+{% extends "base/hero.html.twig" %}
+
+{% block content %}
+    <section style="padding-bottom: 20px">
+        <div class="row-fluid">
+            <div class="span12">
+                <form method="POST" action="{{ app.urlFor('new_timer') }}" class="form-horizontal">
+                    <input type="hidden" name="id" value="{{ timer.id }}">
+                    <div class="control-group">
+                        <label for="days[]" class="control-label">Days of week</label>
+                        <div class="controls">
+                            <label class="checkbox inline"><input type="checkbox" {% if 0 in timer.days %}checked="checked"{% endif %} value="0" name="days[]">Sun</label>
+                            <label class="checkbox inline"><input type="checkbox" {% if 1 in timer.days %}checked="checked"{% endif %} value="1" name="days[]">Mon</label>
+                            <label class="checkbox inline"><input type="checkbox" {% if 2 in timer.days %}checked="checked"{% endif %} value="2" name="days[]">Tue</label>
+                            <label class="checkbox inline"><input type="checkbox" {% if 3 in timer.days %}checked="checked"{% endif %} value="3" name="days[]">Wed</label>
+                            <label class="checkbox inline"><input type="checkbox" {% if 4 in timer.days %}checked="checked"{% endif %} value="4" name="days[]">Thu</label>
+                            <label class="checkbox inline"><input type="checkbox" {% if 5 in timer.days %}checked="checked"{% endif %} value="5" name="days[]">Fri</label>
+                            <label class="checkbox inline"><input type="checkbox" {% if 6 in timer.days %}checked="checked"{% endif %} value="6" name="days[]">Sat</label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="time1" class="control-label">Start at</label>
+                        <div class="controls">
+                            <div class="bfh-timepicker" data-time="{{ timer.time1 }}">
+                                <div data-toggle="bfh-timepicker" class="input-prepend bfh-timepicker-toggle">
+                                    <span class="add-on"><i class="icon-time"></i></span>
+                                    <input type="text" readonly="" name="time1" class="input-medium" value="{{ timer.time1 }}">
+                                </div>
+                                <div class="bfh-timepicker-popover">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td class="hour">
+                                                <a href="#" class="next"><i class="icon-chevron-up"></i></a><br>
+                                                <input type="text" readonly="" class="input-mini"><br>
+                                                <a href="#" class="previous"><i class="icon-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td class="minute">
+                                                <a href="#" class="next"><i class="icon-chevron-up"></i></a><br>
+                                                <input type="text" readonly="" class="input-mini"><br>
+                                                <a href="#" class="previous"><i class="icon-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="time2" class="control-label">Stop at</label>
+                        <div class="controls">
+                            <div class="bfh-timepicker" data-time="{{ timer.time2 }}">
+                                <div data-toggle="bfh-timepicker" class="input-prepend bfh-timepicker-toggle">
+                                    <span class="add-on"><i class="icon-time"></i></span>
+                                    <input type="text" readonly="" name="time2" class="input-medium" value="{{ timer.time2 }}">
+                                </div>
+                                <div class="bfh-timepicker-popover">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td class="hour">
+                                                <a href="#" class="next"><i class="icon-chevron-up"></i></a><br>
+                                                <input type="text" readonly="" class="input-mini"><br>
+                                                <a href="#" class="previous"><i class="icon-chevron-down"></i></a>
+                                            </td>
+                                            <td class="separator">:</td>
+                                            <td class="minute">
+                                                <a href="#" class="next"><i class="icon-chevron-up"></i></a><br>
+                                                <input type="text" readonly="" class="input-mini"><br>
+                                                <a href="#" class="previous"><i class="icon-chevron-down"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="description" class="control-label">Description</label>
+                        <div class="controls">
+                            <textarea name="description">{{ timer.description }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button name="sensor_edit" class="btn btn-primary" type="submit">Save changes</button>
+                        <a href="{{ app.urlFor('rules') }}" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

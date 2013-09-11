@@ -1,0 +1,70 @@
+{% extends "base/hero.html.twig" %}
+
+{% block content %}
+    <section style="padding-bottom: 20px">
+        <div class="row-fluid">
+            <div class="span12">
+                <form method="POST" action="{{ app.urlFor('new_sensor') }}" class="form-horizontal">
+                    <input type="hidden" name="id" value="{{ sensor.id }}">
+
+                    <div class="control-group">
+                        <label for="sensor_id" class="control-label">Sensor</label>
+
+                        <div class="controls">
+                            <select name="sensor_id">
+                                <option value="1" {% if 1 == sensor.sensor_id %}selected="selected"{% endif %}>
+                                    Temperature sensor
+                                </option>
+                                <option value="2" {% if 2 == sensor.sensor_id %}selected="selected"{% endif %}>Light
+                                    sensor
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="operator" class="control-label">Operator</label>
+
+                        <div class="controls">
+                            <select name="operator">
+                                <option value="&gt;" {% if '>' == sensor.operator %}selected="selected"{% endif %}>More
+                                    than (value1)
+                                </option>
+                                <option value="&lt;" {% if '<' == sensor.operator %}selected="selected"{% endif %}>Less
+                                    than (value1)
+                                </option>
+                                <option value="&lt;&gt;" {% if '<>' == sensor.operator %}selected="selected"{% endif %}>
+                                    Between (value1 &amp; value2)
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="value1" class="control-label">Value1</label>
+
+                        <div class="controls">
+                            <input type="text" name="value1" value="{{ sensor.value1 }}">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="value2" class="control-label">Value2</label>
+
+                        <div class="controls">
+                            <input type="text" name="value2" value="{{ sensor.value2 }}">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="description" class="control-label">Description</label>
+
+                        <div class="controls">
+                            <textarea name="description">{{ sensor.description }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        <a href="{{ app.urlFor('rules') }}" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

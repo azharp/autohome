@@ -1,0 +1,26 @@
+{% extends "base/hero.html.twig" %}
+
+{% block content %}
+    <section style="padding-bottom: 20px">
+        <div class="row-fluid">
+            <div class="span12">
+                <form method="POST" action="{{ app.urlFor('devices_name') }}" class="form-horizontal">
+                    {% for device in devices %}
+                        <legend>Device ID: {{ device.id }}</legend>
+                        <div class="control-group">
+                            <label for="device[{{ device.id }}]" class="control-label">Name</label>
+
+                            <div class="controls">
+                                <input type="text" name="device[{{ device.id }}]" value="{{ device.name }}">
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        <a href="{{ app.urlFor('rules') }}" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
