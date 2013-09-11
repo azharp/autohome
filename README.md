@@ -1,4 +1,3 @@
-AutoHome
 Built on: RedSlim (Slim + Twig + Redbean), a PHP micro framework
 ======================================================
 
