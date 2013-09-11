@@ -6,7 +6,7 @@
 define('SLIM_MODE_DEV', 'development');
 define('SLIM_MODE_PRO', 'production');
 define('SLIM_MODE', SLIM_MODE_DEV);
-define('OFFLINE_MODE', true);
+define('OFFLINE_MODE', false);
 
 return array(
     'mode' => SLIM_MODE,
